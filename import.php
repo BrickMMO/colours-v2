@@ -8,6 +8,11 @@ $url = 'https://rebrickable.com/api/v3/lego/colors/?page_size=1000';
 
 $curl = curl_init($url);
 
+/* curl will not verify the SSL certificate against the host name of the server */
+curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+/* curl will not verify the peer's SSL certificate */
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
   
 curl_setopt($curl, CURLOPT_HTTPHEADER, [
@@ -20,9 +25,9 @@ curl_close($curl);
 
 $response = json_decode($response, true);
 
-// echo '<pre>';
-// print_r($response);
-// echo '</pre>';
+echo '<pre>';
+print_r($response);
+echo '</pre>';
     
 $query = 'TRUNCATE TABLE colours';
 mysqli_query($connect, $query);
